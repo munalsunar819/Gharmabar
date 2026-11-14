@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8" data-keep="">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" data-keep="">
+<title data-keep="">Gharma Bar – Order Online</title>
+<style data-keep="">
+:root{--bg:#0f0d0b;--panel:#1a1612;--gold:#d4af64;--lgold:#f0d696;--cream:#ece2cc;--dim:#968870;--line:#3a3022;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{background:var(--bg);scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--cream);font-family:"Liberation Serif","Times New Roman",Georgia,serif;font-size:17px}
+.wrap{max-width:560px;margin:0 auto;padding:18px 16px 40px}
+header{text-align:center;border:2px solid var(--gold);padding:18px 10px;outline:1px solid #6b5530;outline-offset:-7px;cursor:pointer;user-select:none;touch-action:manipulation}
+h1{margin:0;font-size:clamp(34px,10vw,52px);letter-spacing:.12em;color:var(--lgold);font-weight:700}
+.sub{letter-spacing:.3em;font-size:14px;margin-top:4px}
+.tag{color:var(--dim);font-size:13px;letter-spacing:.08em;margin-top:10px;text-transform:uppercase;line-height:1.6}
+h2{font-size:19px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;border-bottom:1px solid #6b5530;padding-bottom:6px;margin:26px 0 6px}
+.item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.item .n{flex:1;line-height:1.25}
+.item .p{color:var(--lgold);font-weight:700;font-size:15px;white-space:nowrap}
+.qty{display:flex;align-items:center;border:1px solid var(--gold);border-radius:8px;overflow:hidden}
+.qty button{width:38px;height:38px;background:none;border:0;color:var(--gold);font-size:22px;line-height:1;touch-action:manipulation;cursor:pointer}
+.qty span{min-width:30px;text-align:center;font-weight:700;color:var(--lgold)}
+.item.on{background:rgba(212,175,100,.07)}
+label{display:block;margin:14px 0 5px;font-size:14px;letter-spacing:.08em;color:var(--gold);text-transform:uppercase}
+input[type=text],input[type=tel],input[type=email],input[type=number],textarea,select{width:100%;background:var(--panel);border:1px solid #6b5530;border-radius:8px;color:var(--cream);font:inherit;font-size:16px;padding:12px}
+textarea{min-height:70px;resize:vertical}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:16px 0 0;font-size:15px;text-transform:none;letter-spacing:0;color:var(--cream)}
+.chk input{width:22px;height:22px;margin-top:2px;accent-color:#d4af64}
+.sum{background:var(--panel);border:1px solid #6b5530;border-radius:10px;padding:12px 14px;margin-top:22px;font-size:15px;white-space:pre-wrap;line-height:1.5;min-height:48px}
+.btn{display:block;width:100%;border:0;border-radius:10px;padding:15px;font:inherit;font-weight:700;font-size:17px;margin-top:12px;cursor:pointer}
+.b1{background:var(--gold);color:#16110b}.b2{background:#1f8f4e;color:#fff}.b3{background:none;border:1px solid var(--gold);color:var(--gold)}
+.msg{margin-top:12px;font-size:15px;line-height:1.5;color:var(--lgold);font-family:Arial,sans-serif}
+.err{color:#ff9a8a}
+.foot{text-align:center;color:var(--dim);font-size:13px;letter-spacing:.1em;margin-top:26px;text-transform:uppercase}
+.locb{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.locb .sm{margin-top:0;font-family:Arial,sans-serif}
+#own{display:none;background:#241d14;border:2px dashed var(--gold);border-radius:10px;padding:12px 14px 16px;margin:16px 0;font-family:Arial,sans-serif}
+body.owner #own{display:block}
+#own h3{margin:0 0 4px;color:var(--lgold);font-size:16px}
+#own label{font-family:Arial,sans-serif;font-size:12px}
+.orow{display:flex;gap:6px;align-items:center;padding:6px 0}
+.orow input{padding:9px;font-size:15px}
+.orow .pr{width:92px;flex:none}
+.x{background:none;border:1px solid #6b5530;color:#ff9a8a;border-radius:6px;min-width:34px;height:36px;padding:0 8px;font-size:15px;flex:none;cursor:pointer}
+.x.confirm{background:#5c221b;border-color:#ff9a8a;font-size:12px;font-weight:700}
+.sm{background:none;border:1px dashed var(--gold);color:var(--gold);border-radius:8px;padding:8px 12px;font-size:14px;margin-top:6px;cursor:pointer}
+.sec-in{font-weight:700;letter-spacing:.06em}
+.ownbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.ownbtns button{flex:1;min-width:110px;border-radius:8px;border:1px solid var(--gold);background:none;color:var(--gold);padding:11px;font-weight:700;font-size:14px;cursor:pointer}
+.ownbtns .pri{background:var(--gold);color:#16110b}
+#codebox{display:none;width:100%;height:120px;margin-top:8px;font-size:12px}
+body.owner .shop{display:none}
+</style>
+</head>
+<body>
+<div class="wrap" data-keep="">
+<header id="brandhdr">
+  <h1 id="title">GHARMA BAR</h1>
+  <div class="sub">ORDER ONLINE</div>
+  <div class="tag">Home delivery across the Valley<br><span id="hrs"></span><br>Strictly for 21+ · Drink responsibly</div>
+</header>
+
+<div id="own"></div>
+<div id="menu"></div>
+
+<div class="shop">
+<h2>Your details</h2>
+<label for="nm">Name</label><input id="nm" type="text" autocomplete="name">
+<label for="ph">Phone number</label><input id="ph" type="tel" autocomplete="tel">
+<label for="loc">Exact location (map link or coordinates)</label>
+<input id="loc" type="text" placeholder="Tap a button below, or paste a Google Maps link">
+<div class="locb"><button type="button" class="sm" id="bgps">📍 Use my current location</button><button type="button" class="sm" id="bmap">🗺️ Open map</button></div>
+<div class="msg" id="locmsg"></div>
+<label for="pay">Payment</label>
+<select id="pay"><option>Cash on Delivery</option><option>QR (eSewa / Khalti)</option></select>
+<label for="nt">Notes (optional)</label><textarea id="nt"></textarea>
+<label class="chk"><input id="age" type="checkbox"><span>I confirm I am 21 or older and will show a valid ID on delivery.</span></label>
+
+<h2>Your order</h2>
+<div class="sum" id="sum">No items selected yet.</div>
+<button class="btn b1" id="bplace" style="display:none">Place order</button>
+<button class="btn b1" id="bmail">Send order by Email</button>
+<button class="btn b2" id="bwa">Send order on WhatsApp</button>
+<button class="btn b3" id="bcopy">Copy order text</button>
+<div class="msg" id="msg"></div>
+<div class="msg" id="ono" style="font-weight:700"></div>
+</div>
+<div class="foot">Gharma Bar · Home delivery</div>
+</div>
+
+<script id="cfg" type="application/json" data-keep="">
+{
+ "email": "raiaditya819@gmail.com",
+ "wa": "9779744999190",
+ "hours": "Delivery hours: 8:00 PM – 3:00 AM",
+ "sections": [
+  {"t": "Whiskey / Scotch", "items": [
+   ["Black Label (750ml)", "200"],
+   ["Black Label (375ml)", "150"],
+   ["Red Label (750ml)", "300"],
+   ["Red Label (375ml)", "160"],
+   ["Jack Daniel’s (750ml)", "600"],
+   ["Signature / Blenders Pride (750ml)", "90"],
+   ["Local Premium Whiskey (750ml)", "600"]]},
+  {"t": "Beer · Bottles & Cans (Packs of 6)", "items": [
+   ["Tuborg (6 Pack)", "260"],
+   ["Carlsberg (6 Pack)", "300"],
+   ["Nepal Ice / Gorkha (6 Pack)", "600"],
+   ["San Miguel / Corona (Single / Pack)", "400"]]},
+  {"t": "Wine, Rum & Vodka", "items": [
+   ["Red Wine (Local / Imported)", "650"],
+   ["White Wine (Local / Imported)", "580"],
+   ["Khukri Rum (750ml)", "600"],
+   ["Rus Vodka / 8848 Vodka (750ml)", "480"]]},
+  {"t": "Mixers & Extras", "items": [
+   ["Soda Water / Cola (1.5L / 500ml)", "600"],
+   ["Packaged Ice (1 Kg Bag)", "700"],
+   ["Energy Drinks (Red Bull / Monster)", "600"]]}
+ ],
+ "scriptUrl": ""
+}
+</script>
+
+<script data-keep="">
+var KEY="gharma_cfg_v2";
+var $=function(id){return document.getElementById(id);};
+var baseStr=document.getElementById("cfg").textContent.trim();
+var defaultCfg=JSON.parse(baseStr);
+var cfg=JSON.parse(baseStr);
+/* Saved edits are used only if they were made on top of this same file version */
+try{var sv=JSON.parse(localStorage.getItem(KEY)||"null");if(sv&&sv.base===baseStr&&sv.cfg)cfg=sv.cfg;}catch(e){}
+var owner=false,qty={},flat=[],orderNo=null,serialNo=null,tapCount=0,tapTimer=null,lastStat="Changes save automatically on this device.";
+
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function stat(t,err){lastStat=t;var s=$("ostat");if(s){s.textContent=t;s.style.color=err?"#ff9a8a":"#8fbf7a";}}
+function persist(){
+  try{localStorage.setItem(KEY,JSON.stringify({base:baseStr,cfg:cfg}));stat("Saved on this device ✓");}
+  catch(e){stat("Could not save on this device. Use Copy full code to keep your changes.",true);}
+}
+function hasPrice(p){return p!==""&&p!=null&&!isNaN(Number(p));}
+
+function renderMenu(){
+  flat=[];qty={};var h="";
+  cfg.sections.forEach(function(s){
+    h+="<h2>"+esc(s.t)+"</h2>";
+    s.items.forEach(function(it){
+      var id=flat.length,pr=hasPrice(it[1]);
+      flat.push({name:it[0],price:pr?Number(it[1]):null});
+      h+='<div class="item" id="i'+id+'"><div class="n">'+esc(it[0])+"</div>"+(pr?'<div class="p">Rs. '+Number(it[1])+"</div>":"")
+      +'<div class="qty"><button type="button" data-id="'+id+'" data-d="-1" aria-label="Less">−</button><span id="q'+id+'">0</span><button type="button" data-id="'+id+'" data-d="1" aria-label="More">+</button></div></div>';
+    });
+  });
+  $("menu").innerHTML=owner?"":h;
+  $("hrs").textContent=cfg.hours;
+  $("bplace").style.display=cfg.scriptUrl?"block":"none";
+  render();
+}
+$("menu").addEventListener("click",function(e){
+  var b=e.target.closest("button");if(!b)return;
+  var id=+b.dataset.id;qty[id]=Math.max(0,Math.min(99,(qty[id]||0)+(+b.dataset.d)));
+  $("q"+id).textContent=qty[id];$("i"+id).classList.toggle("on",qty[id]>0);
+  orderNo=null;serialNo=null;$("ono").textContent="";render();
+});
+function lines(){
+  var out=[],total=0,priced=true;
+  flat.forEach(function(it,i){if(qty[i]>0){
+    var l="- "+qty[i]+" × "+it.name;
+    if(it.price!=null){l+=" – Rs. "+(it.price*qty[i]);total+=it.price*qty[i];}else priced=false;
+    out.push(l);}});
+  return {out:out,total:total,priced:priced};
+}
+function render(){
+  var L=lines();
+  $("sum").textContent=L.out.length?L.out.join("\n")+(L.priced?"\n\nTotal: Rs. "+L.total:""):"No items selected yet.";
+}
+function noLabel(){return serialNo?"#"+serialNo:ensureNo();}
+function ensureNo(){
+  if(!orderNo){
+    var d=new Date(),p=function(n){return String(n).padStart(2,"0");};
+    orderNo="GB-"+p(d.getFullYear()%100)+p(d.getMonth()+1)+p(d.getDate())+"-"+p(d.getHours())+p(d.getMinutes())+p(d.getSeconds());
+  }
+  $("ono").textContent="Your order number: "+orderNo+" (keep it for reference)";
+  return orderNo;
+}
+function orderText(skipNo){
+  var L=lines(),v=function(id){return $(id).value.trim();};
+  var t="NEW ORDER – GHARMA BAR\n"+(skipNo?"":"Order No: "+noLabel()+"\n")+"\nName: "+v("nm")+"\nPhone: "+v("ph")+"\nLocation: "+v("loc")+"\nPayment: "+v("pay")+"\n\nItems:\n"+L.out.join("\n");
+  if(L.priced&&L.out.length)t+="\n\nTotal: Rs. "+L.total;
+  if(v("nt"))t+="\n\nNotes: "+v("nt");
+  return t+"\n\nAge 21+ confirmed: "+($("age").checked?"Yes":"No");
+}
+function check(){
+  var m=$("msg");m.className="msg err";
+  if(!lines().out.length){m.textContent="Please add at least one item.";return false;}
+  if(!$("nm").value.trim()||!$("ph").value.trim()||!$("loc").value.trim()){m.textContent="Please fill in your name, phone and delivery location.";return false;}
+  if(!$("age").checked){m.textContent="Please confirm you are 21 or older.";return false;}
+  m.className="msg";return true;
+}
+function openLink(url){var a=document.createElement("a");a.href=url;a.target="_blank";a.rel="noopener";document.body.appendChild(a);a.click();a.remove();}
+$("bgps").addEventListener("click",function(){
+  var lm=$("locmsg");lm.className="msg";
+  if(!navigator.geolocation){lm.className="msg err";lm.textContent="Location isn’t available on this device. Tap Open map and paste the link here.";return;}
+  lm.textContent="Getting your location…";
+  navigator.geolocation.getCurrentPosition(function(p){
+    $("loc").value="https://www.google.com/maps?q="+p.coords.latitude.toFixed(6)+","+p.coords.longitude.toFixed(6);
+    lm.textContent="Location added ✓ (accuracy about "+Math.round(p.coords.accuracy)+" m). Please check it, and edit it if needed.";
+  },function(){
+    lm.className="msg err";lm.textContent="Your browser blocked automatic location on this page. Tap “Open map”, tap the blue dot (your position), tap Share, copy the link, then paste it in the box above.";
+  },{enableHighAccuracy:true,timeout:15000,maximumAge:0});
+});
+$("bmap").addEventListener("click",function(){
+  var cur=$("loc").value.trim(),url;
+  if(/^https?:\/\//i.test(cur))url=cur;
+  else if(/^-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?$/.test(cur))url="https://www.google.com/maps?q="+encodeURIComponent(cur.replace(/\s/g,""));
+  else url="https://www.google.com/maps";
+  openLink(url);
+  $("locmsg").className="msg";
+  $("locmsg").textContent="In Maps: touch and hold your exact spot to drop a pin, tap Share, copy the link, then paste it in the box above.";
+});
+$("bplace").addEventListener("click",function(){
+  var b=$("bplace"),m=$("msg");
+  if(serialNo){m.className="msg";m.textContent="Your order #"+serialNo+" is already placed.";return;}
+  if(!check())return;
+  b.disabled=true;m.textContent="Placing your order…";
+  fetch(cfg.scriptUrl,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({text:orderText(true),name:$("nm").value.trim(),phone:$("ph").value.trim()})})
+  .then(function(r){return r.json();})
+  .then(function(j){
+    if(!j||!j.ok)throw new Error("fail");
+    serialNo=j.no;b.disabled=false;
+    $("ono").textContent="Order #"+j.no+" placed ✓ We will contact you shortly.";
+    m.textContent="Thank you! Keep your order number #"+j.no+" for reference.";
+  }).catch(function(){b.disabled=false;m.className="msg err";m.textContent="Could not place the order online. Please use WhatsApp or Email below.";});
+});
+$("bmail").addEventListener("click",function(){
+  if(!check())return;
+  openLink("mailto:"+cfg.email+"?subject="+encodeURIComponent("New Order "+noLabel()+" – Gharma Bar")+"&body="+encodeURIComponent(orderText()));
+  $("msg").textContent="Your email app should open with the order filled in. Press Send to finish. If nothing opened, use WhatsApp or Copy.";
+});
+$("bwa").addEventListener("click",function(){
+  if(!check())return;
+  var waNum=String(cfg.wa||"").replace(/\D/g,"");
+  if(waNum.length===10&&waNum.charAt(0)==="9")waNum="977"+waNum;
+  openLink("https://wa.me/"+waNum+"?text="+encodeURIComponent(orderText()));
+  $("msg").textContent="WhatsApp should open with the order ready. Press Send to finish.";
+});
+$("bcopy").addEventListener("click",function(){
+  if(!check())return;
+  var t=orderText(),m=$("msg");
+  function fb(){var ta=document.createElement("textarea");ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");m.textContent="Order copied. Paste it into a message to us.";}catch(e){m.textContent="Could not copy. Please copy the order from the summary.";}ta.remove();}
+  try{navigator.clipboard.writeText(t).then(function(){m.textContent="Order copied. Paste it into a message to us.";},fb);}catch(e){fb();}
+});
+["nm","ph","loc","pay","nt","age"].forEach(function(id){$(id).addEventListener("input",render);});
+
+/* ===== OWNER MODE: tap the logo 5 times ===== */
+$("brandhdr").addEventListener("click",function(){
+  tapCount++;clearTimeout(tapTimer);
+  if(tapCount>=5){tapCount=0;setOwner(!owner);}
+  else tapTimer=setTimeout(function(){tapCount=0;},1200);
+});
+function setOwner(on){
+  owner=!!on;
+  document.body.classList.toggle("owner",owner);
+  if(owner)renderOwner();else $("own").innerHTML="";
+  renderMenu();
+  window.scrollTo(0,0);
+}
+function renderOwner(){
+  var h='<h3>Owner mode</h3><div class="msg" style="margin:4px 0 8px;font-size:13px;color:#968870">Edit anything below. Changes save on this device only. To make them live for customers, tap “Copy full code” and send it to whoever updates the site.</div><div class="msg" id="ostat" style="color:#8fbf7a">'+esc(lastStat)+"</div>"
+  +'<label>Your Gmail (orders go here)</label><input type="email" data-f="email" value="'+esc(cfg.email)+'">'
+  +'<label>WhatsApp number (country code + digits)</label><input type="tel" data-f="wa" value="'+esc(cfg.wa)+'">'
+  +'<label>Delivery hours line</label><input type="text" data-f="hours" value="'+esc(cfg.hours)+'">'
+  +'<label>Order system link (Google Script, optional)</label><input type="text" data-f="scriptUrl" value="'+esc(cfg.scriptUrl||"")+'">';
+  cfg.sections.forEach(function(s,si){
+    h+='<label>Section</label><div class="orow"><input type="text" class="sec-in" data-si="'+si+'" data-f="t" value="'+esc(s.t)+'"><button type="button" class="x" data-act="delsec" data-si="'+si+'" title="Remove section">×</button></div>';
+    s.items.forEach(function(it,ii){
+      h+='<div class="orow"><input type="text" data-si="'+si+'" data-ii="'+ii+'" data-f="n" value="'+esc(it[0])+'"><input class="pr" type="number" inputmode="decimal" placeholder="Price" data-si="'+si+'" data-ii="'+ii+'" data-f="p" value="'+esc(it[1])+'"><button type="button" class="x" data-act="delit" data-si="'+si+'" data-ii="'+ii+'">×</button></div>';
+    });
+    h+='<button type="button" class="sm" data-act="addit" data-si="'+si+'">+ Add item</button>';
+  });
+  h+='<div><button type="button" class="sm" data-act="addsec">+ Add section</button></div>'
+  +'<div class="ownbtns"><button type="button" class="pri" data-act="copy">Copy full code</button><button type="button" data-act="reset">Reset to original</button><button type="button" data-act="exit">Done</button></div>'
+  +'<textarea id="codebox" readonly></textarea><div class="msg" id="omsg"></div>';
+  $("own").innerHTML=h;
+}
+$("own").addEventListener("input",function(e){
+  var t=e.target,f=t.dataset.f;if(!f)return;
+  var si=t.dataset.si,ii=t.dataset.ii;
+  if(si==null)cfg[f]=t.value;
+  else if(ii==null)cfg.sections[si].t=t.value;
+  else cfg.sections[si].items[ii][f==="n"?0:1]=t.value;
+  persist();
+});
+$("own").addEventListener("click",function(e){
+  var b=e.target.closest("button");if(!b||!b.dataset.act)return;
+  var a=b.dataset.act,si=b.dataset.si,ii=b.dataset.ii;
+  if(a==="addit"){cfg.sections[si].items.push(["New item",""]);}
+  else if(a==="delit"){cfg.sections[si].items.splice(ii,1);}
+  else if(a==="delsec"||a==="reset"){
+    if(!b.dataset.ok){
+      var old=b.textContent;b.dataset.ok="1";b.classList.add("confirm");b.textContent=a==="reset"?"Tap again":"Remove?";
+      setTimeout(function(){delete b.dataset.ok;b.classList.remove("confirm");b.textContent=old;},3000);
+      return;
+    }
+    if(a==="delsec")cfg.sections.splice(si,1);
+    else cfg=JSON.parse(baseStr);
+  }
+  else if(a==="addsec"){cfg.sections.push({t:"New section",items:[["New item",""]]});}
+  else if(a==="exit"){setOwner(false);return;}
+  else if(a==="copy"){copyCode();return;}
+  persist();renderOwner();renderMenu();
+});
+function fullCode(){
+  var c=document.documentElement.cloneNode(true);
+  [].slice.call(c.querySelectorAll("head > *, body > *")).forEach(function(n){if(!n.hasAttribute("data-keep"))n.remove();});
+  [].slice.call(c.attributes).forEach(function(a){if(a.name!=="lang")c.removeAttribute(a.name);});
+  var b=c.querySelector("body");b.removeAttribute("class");b.removeAttribute("style");
+  ["own","menu","msg","ono","locmsg"].forEach(function(id){var n=c.querySelector("#"+id);if(n)n.innerHTML="";});
+  var s=c.querySelector("#sum");if(s)s.textContent="No items selected yet.";
+  var hr=c.querySelector("#hrs");if(hr)hr.textContent="";
+  var bp=c.querySelector("#bplace");if(bp)bp.setAttribute("style","display:none");
+  var sc=c.querySelector("#cfg");if(sc)sc.textContent="\n"+JSON.stringify(cfg,null,1).replace(/<\//g,"<\\/")+"\n";
+  return "<!DOCTYPE html>\n"+c.outerHTML;
+}
+function copyCode(){
+  var cb=$("codebox"),t=fullCode();cb.style.display="block";cb.value=t;cb.select();
+  var ok=false;try{ok=document.execCommand("copy");}catch(e){}
+  $("omsg").textContent=ok?"Full code copied ✓":"Select all in the box above and copy it.";
+}
+renderMenu();
+</script>
+</body></html>
